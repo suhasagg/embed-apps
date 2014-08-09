@@ -1,0 +1,92 @@
+<% script = capture do %>
+  <%= javascript_include_tag "app_edit" %>
+<% end %>
+<% content_for :script, script %>
+
+<%= semantic_form_for(@app,:html => {:class => 'form-horizontal', :id => "form_app"}) do |f| %>
+  <% if @app.errors.any? %>
+    <div id="error_explanation">
+      <h2>Errors prohibited this app from being saved</h2>
+      <%= f.semantic_errors %>
+    </div>
+  <% end %>
+
+  <%= f.inputs  :name => "Basic" do %>
+    <%= f.input :name, :placeholder => "name of the app"  %>
+
+    <%= f.input :description,
+                :placeholder => "Short description in HTML",
+                :input_html => {:rows => 5} %>
+
+    <%= f.input :image_url,
+                :label =>"Image url",
+                :placeholder => "image url" %>
+  <% end %>
+
+  <%=  f.inputs "Iframe size", :'data-embeddable' => '1' do %>
+    <%= f.input :iframe_height, :input_html => { :class => 'iframe_height' } %>
+    <%= f.input :iframe_width, :input_html => { :class => 'iframe_width' } %>
+ <% end %>
+
+
+  <%= f.inputs :name => "Problem - Cloud Elements" do %>
+      <% if @edit %>
+    <div style="float:right">
+      <div id="link_challenges" ></div>
+      <a href="action?method=index_tasks" class="btn"/>Reindexing Challenges</a>
+
+    </div>
+    <% end %>
+
+    <%= f.input :challenges_table_url,
+                :label =>"URL of Challenges data to index",
+                :hint => "Created automatically if left blank",
+                :placeholder => "URL of a google fusion table" %>
+                 <%= f.input :task_column,
+                :label => "Task column",
+                :placeholder => "Column of the challenge ID to index",
+                :collection=>[]  %>
+ <% if @edit %>
+    <div style="float:right">
+      <div id="link_answers" ></div>
+      <a href="action?method=delete_answers" class="btn"/>Delete Answers</a>
+    </div>
+    <% end %>
+    <div id="link_challenges"></div>
+    <%= f.input :answers_table_url,
+                :label => "URL to store micro-contributions",
+                :placeholder => "URL of a google fusion table",
+                :hint => "Created automatically if left blank" %>
+
+
+
+
+    <%= f.input :gist_url,
+                :label => "UI Source Code URL",
+                :placeholder => "https://gist.github.com/3028982",
+                :hint => "(default code forked if left blank)" %>
+  <% end %>
+
+  <%= f.inputs :name => "Problem - Collaborative Solving strategy" do %>
+  <%= f.input :redundancy,
+                :label => " How many solvers per challenge? ",
+                :placeholder => "3",
+                :hint => "(0 for unlimited allocation)" %>
+  <% end %>
+
+  <%= f.actions do %>
+  <% if @edit %>
+     <%= f.submit "update", :class =>"btn btn-primary", :disable_with => 'Wait...'  %>
+      <%= link_to 'delete App', @app, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger"  %>
+
+  <% else %>
+ <%= f.submit "Create & Start coding online", :class =>"btn btn-primary btn-large", :disable_with => 'Wait...'  %>
+  <% end %>
+
+
+
+
+  <% end %>
+
+  </div>
+<% end %>

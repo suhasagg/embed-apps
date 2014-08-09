@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MechanicalMap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
+  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+  <!-- bootstrap
+  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+  -->
+
+  <%= javascript_include_tag "application" %>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing"></script>
+  <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+  <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+
+  <script type="text/javascript">
+      var user = {id:<%= current_or_guest_user.id %>, name:"<%= current_or_guest_user.username %>"};
+      var scheduler_url = "<%= workflow_app_url(@app) %>";
+      var application_url = "<%= app_url(@app) %>";
+      var ft_table = "<%= @app.input_ft %>";
+      //dynamically resize the map
+  </script>
+
+</head>
+
+<body>
+<div class="container">
+  <div
+</div>
+<!-- BEGINNING OF The UI Task TEMPLATE
+================================================== -->
+<!-- schema=[{name:"task_id", type:"number"},{name:"user_id", type:"number"},{name:"relevance", type:"number"}] -->
+
+<div id="info">
+  <img id="image" src="http://www.langues-jonquiere.ca/images/images/loading.gif" style="max-height: 100%;max-width: 100%">
+</div>
+
+<div id="menu" style="height:80px;display:block;margin: 0;padding: 0;clear: both">
+  <p> This photo has been taken during the libya conflict and published on <a href='#' id="webpage"> this web page</a>.
+    <br/>Does this image show damaged buildings?</p>
+
+  <div class='row'>
+
+    <div class="span3">
+      <form accept-charset="UTF-8" action="" id="form_task" class="edit_task navbar-form pull-left" data-remote="true" data-type="json" id="submit_task" method="put">
+        <input id="task_answer" name="task_answer" type="hidden"/>
+        <button type="button" id='yes_button' class="btn" data-disable-with="Saving..." name="relevant">Yes</button>
+        <button type="button" id='no_button' class="btn" data-disable-with="Saving..." name="not_relevant">no</button>
+        <a id='skip_task' class="btn btn-small" href="#">Next photo</a>
+      </form>
+    </div>
+    <div class="span3">
+      <div class="block-helper">
+        <small>Task completeness</small>                               </div>
+      <div class="progress" style="width:100px;height: 10px">
+        <div class="bar" id="progress_bar" style="width: 10%;color:black;font-size: smaller;padding: 0;margin: 0"></div>
+      </div>
+    </div>
+    <div class="span3"><span id="task_user_id"></span></div>
+  </div>
+</div>
+
+
+<!-- javascript
+================================================== -->
+<script type="text/javascript">
+    // Global variables
+
+    var micro_task;
+    var relevance;
+
+    function submit_vote(vote) {
+        relevance = vote;
+        $("#form_task").submit();
+    }
+
+    function resize_image() {
+        // calculate new size and apply it
+        var max_h = $(window).height();
+        var max_w = $(window).width();
+        var m_h = $("#menu").height();
+        $("#info").height(max_h - m_h);
+    }
+
+
+    $(function() {
+
+        // initializing the UI
+        $("#yes_button").click(function() {
+            submit_vote(1);
+        });
+        $("#no_button").click(function() {
+            submit_vote(-1);
+        });
+        $("#image").load(resize_image);
+
+        // initializing the task manager
+        // we have to manage the loading and saving of a task
+        micro_task = new FTMicroTask({
+            scheduler_url:scheduler_url,
+            ft_table:ft_table,
+            load:function(ft_data) {
+                console.log(ft_data);
+                // parse specific task info
+                var image_url = ft_data.table.rows[0][1];
+                $("#image").attr('src', image_url);
+                var web_page_url = ft_data.table.rows[0][2];
+                $("#webpage").attr('href', web_page_url);
+            },
+            save:function() {
+                var rows = [];
+                rows.push({
+                    user_id :user.id,
+                    task_id: micro_task.task.input,
+                    relevance: relevance});
+                $("#task_answer").val(JSON.stringify(rows));
+            }
+        });
+        micro_task.start();
+        resize_image();
+    });
+</script>
+
+<!--END  UI Task TEMPLATE
+================================================== -->
+</body>
+</html>

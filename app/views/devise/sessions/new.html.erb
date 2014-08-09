@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="span6" style="border-right:1px solid #777">
+    <p>
+      <div style="float:left;margin-right:20px">
+      <a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="http://www.fabriquespinoza.org/wp-content/uploads/2012/05/twitter-100x100.png" alt="twitter" title="Sign in with Twitter"></a>
+      </div>
+      <div style="float:left;margin-right:20px">
+      <a href="<%=user_omniauth_authorize_path(:google_oauth2)%>"><img src="https://lh4.googleusercontent.com/_a1kImHvdl8I/Ta6KK0M6Y0I/AAAAAAAAACw/PZ7CeNQe4BM/google.jpg" title="Sign in with your Google Account"></a>
+      </div>
+      <div style="">
+      <a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="http://www.infiniclick.fr/clients/infiniclick/images/blog/vignette-facebook.png" title="Sign in with your Facebook Account"></a>
+      </div>
+    </p>
+    <h3>Or via the traditional way </h3>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <div class="control-group">
+          <%= f.label :email, :class=>"hidden-label" %>
+          <div class="controls">
+            <%= f.email_field :email , :placeholder =>"Email"  %>
+          </div>
+        </div>
+
+        <div class="control-group"><%= f.label :password, :class=>"hidden-label" %>
+          <div class="controls">
+            <%= f.password_field :password, :placeholder =>"Password"  %></div>
+        </div>
+
+        <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+
+
+        <div class="form-action"><%= f.submit "Sign in", :class=>"btn btn-primary" %>
+       </div>
+           <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+            <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+          <% end -%>
+    <% end %>
+    </div>
+
+    <div class="span5">
+     <h3>No Account Yet?</h3>
+      <br/> <%= link_to "Sign up", new_registration_path(resource_name), :class=>"btn btn-success" %>
+    </div>
+
+  </div>
+</div>

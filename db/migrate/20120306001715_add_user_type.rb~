@@ -1,0 +1,10 @@
+class AddUserType < ActiveRecord::Migration
+  def up
+change_table :tasks do |t|
+      t.boolean :anonymous, :default=>false
+    end
+  end
+
+  def down
+  end
+end

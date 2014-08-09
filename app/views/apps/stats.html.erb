@@ -1,0 +1,48 @@
+<% @app_header = capture do %>
+<ul class="nav">
+    <li><a href="/apps">Explore apps</a></li>
+     <li class="dropdown">
+      <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= @app.name[0..20] %> <b class="caret"></b></a>
+      <%= render "app_menu" %>
+    </li>
+</ul>
+<% end %>
+
+<% content_for :menu_header, @app_header %>
+<style>
+  section{ margin-top:10px; }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="span4">
+
+    <h3>General stats</h3>
+
+     <p>   <%= @app.tasks.count %> Challenges indexed </p>
+     <p>
+
+        <% completion = @app.completion %>
+        <% if completion[:total] == 0 %>
+        No answer
+        <% else %>
+         <%= @app.answers.count %> Answers </p>
+        <%= completion[:completed] %> / <%= completion[:total] %>
+        <div class="progress progress-info  progress-striped">
+          <div class="bar" style="width: <%= completion[:completed] *100/completion[:total] %>%;"></div>
+        </div>
+        <% end %>
+   </div>
+
+<div class="span4">
+        <h3>Last contributors</h3>
+        <ul style="padding: 0px;margin: 0; margin-top: 3px;">
+          <% @app.contributors.order('users.updated_at desc').limit(20).each { |u| %>
+              <li style="list-style-type: none;">
+                <%= gravatar_image_tag(u.email, :title => u.username, :gravatar => {:default => :identicon, :size => 30}) %>
+            <%= time_ago_in_words(u.updated_at) %> ago
+              </li>
+          <% } %>
+    </div>
+  </div>
+</div>

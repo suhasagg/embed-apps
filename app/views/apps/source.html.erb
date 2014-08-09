@@ -1,0 +1,90 @@
+<% header = capture do %>
+  <ul class="nav">
+    <li> <a href="/apps">Explore apps</a></li>
+     <li class="dropdown">
+    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= @app.name[0..20] %> <b class="caret"></b></a>
+    <%= render 'app_menu' %>
+  </li>
+
+    <li>
+      <a href="<%= @app.gist_url %>" target="_blank" class=""><b class=" icon-list-alt"></b> Gist / History</a>
+    </li>
+  </ul>
+
+  <%= form_for(@app, :url => {:action => "source_update"}, :html => {:id => "form_app"}, :remote => true) do |f| %>
+    <input type="hidden" name="app[script]" id="app_script" value=""/>
+    <div class="nav">
+      <button class="btn btn-primary" data-disable-with="Saving..."
+              id="update"> Save code
+      </button>
+    </div>
+  <% end %>
+<% end %>
+
+<% content_for :menu_header, header %>
+
+<style type="text/css" media="screen">
+  form { margin:0px; }
+  #editor {
+      margin: 0;
+      top: 40px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+  }
+</style>
+
+<div id="editor"><%= @app.script %></div>
+
+
+<% script = capture do %>
+
+<script type="text/javascript">
+    // Global variables
+    var editor;
+    var code_changed = false
+    $('.dropdown-toggle').dropdown();
+
+    function save(){
+        var text = editor.getSession().getValue();
+        $("#app_script").val(text);
+        code_changed = false;
+        $("#update").attr("disabled",true);
+        return true;
+    }
+
+    // Register an event listener to fire when the page finishes loading.
+    $(function () {
+      $("#form_app").submit(save);
+
+      editor = ace.edit("editor");
+      editor.setTheme("ace/theme/chrome");
+      var Mode = require("ace/mode/html").Mode;
+      editor.getSession().setMode(new Mode());
+      editor.getSession().setUseSoftTabs(true);
+      editor.getSession().setTabSize(2);
+      editor.commands.addCommand({
+        name: 'mySave',
+        bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+          exec: function(editor) {
+            $("#form_app").submit();
+          }
+      });
+      editor.getSession().on('change', function(){
+        code_changed = true;
+        $("#update").attr("disabled",null);
+      });
+
+      // we save every minute
+      (function(){
+        // do some stuff
+        if (code_changed){
+          $("#form_app").submit();
+        }
+        setTimeout(arguments.callee, 60000);
+      })();
+    });
+ </script>
+<% end %>
+<% content_for :script, script %>
+

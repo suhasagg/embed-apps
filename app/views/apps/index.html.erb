@@ -1,0 +1,47 @@
+<% app_header = capture do %>
+<ul class="nav">
+  <li class="active"> <a href="/apps">Explore apps</a></li>
+  <li ><a href="/apps/new">Create an app</a></li>
+</ul>
+<% end %>
+<% content_for :menu_header, app_header %>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Explore Crowdsourcing Apps</h1>
+  </div>
+  <ul class="thumbnails">
+
+  <% @start = false
+  @apps.each_with_index do |app, i|
+    #completed, size= @app.completion
+    @app = app %>
+    <li class="span4">
+      <div class="thumbnail">
+        <img src="<%= @app.image_url %>" style="height:200px;width:320px;"/>
+        <div class="caption">
+          <h4><%= app.name %> </h4>
+          <small> created <%= time_ago_in_words(app.created_at) %> ago</small>
+          <p><%=  app.description.html_safe %></p>
+          <p>
+              <div class="dropdown" >
+            <a href="<%= app_url(app) %>" class="btn btn-primary">Start</a>
+
+              <a id="drop_<%= i %>" href="#" role="button" class="btn dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+             <%= render "app_menu" %>
+
+            </div>
+          </p>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+</div>
+<% script = capture do %>
+<script type="text/javascript">
+ $('.dropdown-toggle').dropdown();
+ </script>
+<% end %>
+<% content_for :script, script %>
+

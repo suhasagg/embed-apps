@@ -1,0 +1,21 @@
+<% unless @app.nil? %>
+<% _button_size = @button_size || "btn-small" %>
+
+<div id="app_menu">
+    <div class="navbar active">
+        <a href="<%= app_url(@app) %>" class="btn <%= _button_size %>"  target="_parent">fullscreen</a>
+        <a rel="div" href="#embed_<%= @app.id %>" class="btn <%= _button_size %> btn-danger" style="margin-left:10px">spread it</a>
+        <a href="/apps/new?copyof=<%= @app.id %>" class="btn <%= _button_size %> btn-danger"    target="_parent">clone it</a>
+        <a href="/apps/<%= @app.id %>/source" class="btn <%= _button_size %> btn-primary" style="margin-left:10px"    target="_blank">source code</a>
+        <a href="<%= @app.challenges_table_url %>"
+                    class="btn <%= _button_size %> btn-primary"    target="_blank">Challenges data</a>
+        <a href="<%= @app.answers_table_url %>"
+                    class="btn <%= _button_size %> btn-primary"    target="_blank" >Answers data</a>
+    </div>
+    <div width="100%" id="embed_<%= @app.id %>" class="input" style="display:none;clear:both;">
+        copy &amp; paste this code to your web site to support further contributions
+        from your visitors.
+        <textarea style="width:100%" ><iframe width="<%= @app.iframe_width %>" height="<%= @app.iframe_height %>" scrolling="no" src="<%= app_url(@app) %>"></iframe></textarea>
+    </div>
+</div>
+<% end %>

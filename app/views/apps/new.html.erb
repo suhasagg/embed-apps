@@ -1,0 +1,12 @@
+<% app_header = capture do %>
+<ul class="nav">
+	<li> <a href="/apps">Explore apps</a></li>
+	<li class="active"><a href="/apps/new">Create an app</a></li>
+</ul>
+<% end %>
+<% content_for :menu_header, app_header %>
+<% @edit = false %>
+
+<div class="container">
+	<%= render 'form2' %>
+</div>

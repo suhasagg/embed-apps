@@ -1,0 +1,40 @@
+<div class="container">
+  <form action="/demo_generator" method="post" class="form-vertical">
+    <input type="hidden" name="task_input" id="task_input" value=""/>
+    <fieldset>
+      <h3>Tasks Generator Helper for analyzing an area</h3>
+
+  <p>
+        This is a (demo) helper to generate simple crowdmapping tasks. This helper will cut an area into a grid of smaller
+        areas having a given resolution.
+        The result will be a google fusion table ready to be used as input for any MicroTask application.
+        (next step: create your own instructions / task interpreter to process them)
+      </p>
+
+      <hr/>
+
+      <div class="row">
+        <div class="span12">
+          <h2><img src="http://80.11.216.8/ohada_region/images/icons/processing.gif"> Generating a Google Fusion table being</h2>
+          We are generating a google fusion table filled with a grid of areas to analyze.
+          <br/>Once done, you will received an email from Google. We grant you as the owner of this table.
+          <!--<p>Table ID <br/><h4 class="alert alert-info"><%= @table_id %></h4>
+          </p>-->
+    <!--      <a class="btn btn-primary btn-large" href="http://www.google.com/fusiontables/DataSource?docid=<%= @table_id %>">See
+            the generated tasks</a> -->
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="span12">
+          <h2> Next step</h2>
+
+          <p>Create you app using this table
+            <br/>
+            <a class="btn btn-primary btn-large" href="/apps/new %>">Create app</a>
+          </p>
+        </div>
+      </div>
+</div>

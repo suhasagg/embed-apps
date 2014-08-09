@@ -1,0 +1,66 @@
+
+<ol class="unstyled">
+<li><b>1. Create the Google fusion table containing each mini challenges you want solvers try to solve</b>
+
+<p> a. Import <a href="https://www.google.com/fusiontables/DataSource?dsrcid=implicit" target="_blank" >your xsl, csv data</a> or create an empty Google fusion table. This table
+represents the list of mini-challenges to complete with a column representing the challenge ID (e.g. task_id) and any further columns for input data (e.g. the url of an image to annotate, the questions to ask etc). You can also .
+
+  <img src='/assets/ft_input_images2.jpg' style='width:100%;border:1px solid black' />
+<!--<br/> Here another table given as example.
+  <img src='/assets/ft_input_table.jpg' style='width:100%;border:1px solid black' />
+-->
+</p>
+<p><b>b. Copy the public link </b>.  click to the 'share' button at the top right.
+  and make its access to 'public'. then copy the URL at the top
+<img src='/assets/share.jpg' style='width:100%;border:1px solid black' /> </p>
+
+</p>
+
+
+<div class="alert alert-block alert-success fade in">
+<p>I encourage you to review the Tasks data of existing open apps to get more familiar with the framework.  <a href="https://www.google.com/fusiontables/DataSource?docid=11TePGrrVCRKJ1IPY6I8wkUrmyfZ6OKELxRgLjjU">Here</a> is the task data containing a set of images to annotate, or
+<a href="https://www.google.com/fusiontables/DataSource?docid=1Xm-WmlR2wnxuBusTR94V3xZygkPKUukq9x-YLoM">here </a> with a
+more complex task structure </a>
+to
+clusters of a set of documents. We also propose specific <i>Tasks Generator </i> e.g.
+  <a href="/demo_generator"> a generator GIS-related tasks</a> for analyzing a large area
+by dividing it into smaller ones.
+  <a href="https://www.google.com/fusiontables/DataSource?docid=1pSWNLzQE0oZSs7KJqzhjsMeT96QELkmE9gROt7E">see
+the resulting table </a></p>
+</div>
+<span class="label label-warning">Note</span> Google fusion has <a
+href="https://developers.google.com/fusiontables/docs/developers_guide#Constraints">some constraints</a> you
+need to be aware. -->
+</p>
+</li>
+<li><h4>2. Idem for the Answers table </h4>
+
+<p> This table should contain initially 4 required columns:
+  <ul><li>
+answer_id = id of the answer </li>
+<li> task_id = the id of the challenge answered</li>
+<li> created_at = the
+datetime of
+the answer </li>
+<li>user_id = the user's ID </li>
+            <li> and any further challenge-specific columns required for the answer</li>.
+          </ul>
+        </p>
+        </li>
+        <li>
+          <h4>3. Create the UI code </h4>
+
+          <p>
+            Create the UI to present the task and collect the data using the <a href="/framework">javascript framework.</a> No need to install something. Code
+            online. The code is also saved to GIST to manage the versioning.
+            <img src='/assets/editor.jpg' style="width:100%;border: 1px solid black"/>
+          </p>
+        </li>
+
+
+        <li><h4>4. Enjoy !</h4>
+          <p>
+          Your app is ready. You can embed the app on your web site or display its QRcode so people can complete tasks via their mobile phones. <br/>Note: You can still improve/update the source code. the app will be automatically updated.
+        </p>
+        </li>
+      </ol/>

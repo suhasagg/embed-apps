@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<!-- <img src="/assets/architecture.jpg" width="100%"/> -->
+<hr/>
+<div class="row">
+    <div class="span6">
+        <h2> Demo of web widgets</h2>
+
+        <div class="row">
+            <div class="span7">
+                <h3>Images classification</h3>
+
+                <p>A common toy example is to classify a large amount of photos.
+                    In this example we assume you have csv or xsl spreadsheets with all the url of the images to classify.
+                    Each row is a task with for instance the url of the image to classify.
+
+                    Once this table imported on a google fusion table (you can also have a programm filling/updating the
+                    fusion table to add new tasks/images), you need to add the ID of the google fusion and
+                    create the UI Template to generate the web widget and the output table. </p>
+                <ul class="thumbnails">
+                    <li class="thumbnail span3">
+                        <a href="/assets/ft_input_images.jpg"><img src="/assets/ft_input_images.jpg"
+                                                                   style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>
+                                Tasks input table with a list of images and other contextual information
+                            </small>
+                        </p>
+                    </li>
+                    <li class="thumbnail span3">
+                        <a href="/assets/web_widget_image.jpg"><img src="/assets/web_widget_image.jpg"  style="max-width: 200px"/></a>
+                        <p>
+                            <small>
+                                Generated web widget to classify images.
+                            </small>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="span5">
+
+                <iframe width="380px" height="360px" frameborder="0" scrolling="no"
+                        src="http://mechanicaltask.dev.fabelier.org/apps/5?embeddable=1"
+                        style="border: 1px solid #000000"></iframe>
+                <br/> Copy & paste this code to embed it on your website
+                <textarea rows="3" class="span5">
+                    <iframe width="100%" height="320px" frameborder="0" scrolling="no"
+                            src="http://mechanicaltask.dev.fabelier.org/apps/5?embeddable=1"></iframe>
+                </textarea>
+
+                <p>
+                    <small><a href="http://mechanicaltask.dev.fabelier.org/apps/5">more information (data and template code
+                        source)</a></small>
+                </p>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span6">
+                <h3>Tagging Images</h3>
+
+                <p>A similar example is about annotating large amount of images e.g. tagging galaxies like GalaxyZoo.
+                    In this case the input table is the same as for the previous example about classifying images.
+                    Only the instructions , and tools to process the task change. So only the UI template needs to be updated.
+
+                </p>
+
+            </div>
+            <div class="span6">
+
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span6">
+                <h3>Analyzing a large area</h3>
+                Let assume you want to create quickly a crowdmapping project asking to volunteers to identify
+                objects inside a large area.
+                <ul>
+                    <li>First you need to create a fusion table representing the micro-tasks to process. You can generate this
+                        table yourself. we also propose you a task generator cutting your map into a grid
+                        of smaller
+                        areas, easier to analyze individually. The result is sent to a google fusion table.
+                        You need to set up the permission of the fusion table so it is
+                        publicly visible if it is not already done.
+                    </li>
+                    <li>>Then you need create a crowdsourcing project. first add the encrypted ID of the fusion table
+                        so VolatileTask can index the table (without understanding that is about mapping).
+                    </li>
+                    <li>As you are responsible of the interpretation of the tasks e.g the UI and the information you
+                        want to collect, you also must add a script template. This template can be copied and modified from
+                        other projects.
+                        This will generate a web widget and another fusion table to store the answers of
+                        volunteers.
+                    </li>
+                    <li>Finally you can embed the web widget in your website and add further information (e.g. tutorial) if
+                        required.
+                    </li>
+                    <li>At any time you have visualize and export the answers via the google fusion.</li>
+                </ul>
+                <ul class="thumbnails">
+                    <li class="thumbnail span3" style="height: 160px">
+                        <a href="/assets/generator.jpg"><img src="/assets/generator.jpg" style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>Task generator helping you to divide the analysis of a large area</small>
+                        </p>
+                    </li>
+                    <!--    <li class="thumbnail span3" style="height: 160px">
+                        <a href="/assets/ft_input_table.jpg"><img src="/assets/ft_input_table.jpg"
+                                                                  style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>Generated Tasks input table with each row representing a task = a region to analyze
+                                (1/2)
+                            </small>
+                        </p>
+                    </li>-->
+                    <li class="thumbnail span3">
+                        <a href="/assets/ft_input.jpg"><img src="/assets/ft_input.jpg" style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>GeoVisualisation (using the google fusion tools) of the generated input google fusion table
+                                with a lots of small areas
+                            </small>
+                        </p>
+                    </li>
+                    <!--         <li class="thumbnail span3">
+                        <a href="/assets/newproject.jpg"><img src="/assets/newproject.jpg"
+                                                              style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>To create a new project, add the ID of the fusion table and a script template</small>
+                        </p>
+                    </li>-->
+                    <li class="thumbnail span3">
+                        <a href="/assets/web_widget_map.jpg"><img src="/assets/web_widget_map.jpg"
+                                                                  style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>Generated web widget you can embed on your web site</small>
+                        </p>
+                    </li>
+                    <li class="thumbnail span3">
+                        <a href="/assets/ft_output_map2.jpg"><img src="/assets/ft_output_map2.jpg"
+                                                                  style="max-width: 200px"/></a>
+
+                        <p>
+                            <small>GeoVisualization (using the google fusion tools) of the Generated output fusion table storing
+                                the answers
+                            </small>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="span6">
+                <p><strong> Play with the web widget!</strong>
+                    <small><a href="#">more information (data and code source)</a></small>
+                </p>
+                <iframe width="100%" height="550" frameborder="0" scrolling="no"
+                        src="http://mechanicaltask.dev.fabelier.org/apps/6?embeddable=1"></iframe>
+                <br/> Copy & paste this code to embed it on your website
+                <textarea rows="3" class="span6">
+                    <iframe width="100%" height="550" frameborder="0" scrolling="no"
+                            src="http://mechanicaltask.dev.fabelier.org/apps/6?embeddable=1"></iframe>
+                </textarea>
+
+                <p>
+                    <small><a href="http://mechanicaltask.dev.fabelier.org/apps/6">more information (data and template code
+                        source)</a></small>
+                </p>
+            </div>
+        </div>
+
+        <hr/>
+
+
+        <h2>Task composition: from micro to macro tasks</h2>
+
+        TODO fun example with a "human cellular automaton"
+        <img src="http://www.economicsnetwork.ac.uk/cheer/ch17/hand1.gif"/>
+        <hr/>
+        <h2>Credits</h2>
+        <a href="http://nico.maisonneuve.free.fr">NM - march 2012</a>
+    </div>
+</body>
+</html>

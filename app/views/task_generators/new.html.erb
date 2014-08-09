@@ -1,0 +1,204 @@
+<%= javascript_include_tag 'map_helper' %>
+
+<div class="container">
+  <form action="/demo_generator" method="post" class="form-vertical">
+    <input type="hidden" name="task_input" id="task_input" value=""/>
+    <fieldset>
+      <h3>GIS Tasks Generator for analyzing large areas</h3>
+
+      <p>
+        This task generators cuts an area into a grid of
+        smaller areas with a given resolution. The result is put into a google fusion table, ready to be used as input for any application.
+      </p>
+
+      <hr/>
+
+
+      <div class="row">
+        <div class="span3">
+          <div class="control-group">
+            <div class="control-label">Add your own map (optional)
+              <a id="add_wms" href="http://sampleserver1.arcgisonline.com/arcgis/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&SRS=EPSG:4326&WIDTH=256&HEIGHT=256&Styles=default&FORMAT=image/jpeg&CRS=EPSG:4326&layers=0">example</a>
+            </div>
+            <div class="controls"><%= text_field_tag "app_wms_map", "", :class=>"text-field", :placeholder=>"URL of your WMS server" %>
+              <br/>
+              <button type="button" id="refresh_map" class="btn btn-small">refresh map <i class="icon-refresh"></i>
+              </button>
+            </div>
+          </div>
+          <hr/>
+          <div class="alert alert-info" id='task_helper'>
+            <h3>Draw a rectangle</h3>
+            to define the area to analyze
+          </div>
+
+
+          <div id="task_info" style="display:none">
+            <div class="control-group">
+              <div class="control-label">Area resolution per task (in Km)</div>
+              <%= text_field_tag "app_lat_res", "1", :class=>"input-mini", :size=>"3", :maxlength=>"10", :placeholder=>"1" %>
+              x
+              <%= text_field_tag "app_lng_res", "1", :class=>"input-mini", :size=>"3", :maxlength=>"10", :placeholder=>"0.5" %>
+            </div>
+
+            <div class="alert"><i class="icon-warning-sign"></i> Tasks generated:
+              <h3 id="nb_tasks" class=""></h3>
+            </div>
+            <div class="forms-action">
+              <button class="btn btn-primary">Generate tasks</button>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="span9">
+          <div id="map" style="width:100%;height: 400px"></div>
+        </div>
+
+      </div>
+
+    </fieldset>
+  </form>
+</div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
+<script type="text/javascript">
+    // Global variables
+    var map;
+    var marker_sw;
+    var marker_ne;
+    var current_rectangle;
+    var G = google.maps;
+
+    function refresh_map() {
+        var wms_server = $("#app_wms_map").val();
+        add_wms_url(wms_server, "toto");
+    }
+
+
+    /**
+     * Called on the initial page load.
+     */
+    function init() {
+
+
+        //  $('#new_app').bind('ajax:before', generate_task_input);
+        $("#app_lat_res").change(compute_nb_tasks);
+        $("#app_lng_res").change(compute_nb_tasks);
+        $("#add_wms").click(function() {
+            event.preventDefault();
+            var wms = $(this).attr("href");
+            $("#app_wms_map").val(wms);
+            refresh_map();
+            map.setZoom(4);
+            map.setCenter(new google.maps.LatLng(40.8, -101.6));
+        });
+
+        $("#refresh_map").click(refresh_map);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            'zoom': 13,
+            'center': new google.maps.LatLng(48.8588, 2.336),
+            'mapTypeId': google.maps.MapTypeId.SATELLITE,
+            panControl: false,
+            zoomControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+        });
+
+        if (navigator.geolocation)
+            var watchId = navigator.geolocation.watchPosition(function(position) {
+                map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            }, null, {enableHighAccuracy:true});
+
+        var drawingManager = new G.drawing.DrawingManager({
+            drawingMode: G.drawing.OverlayType.RECTANGLE,
+            drawingControl: true,
+            drawingControlOptions: {
+                position: G.ControlPosition.TOP_CENTER,
+                drawingModes: [
+                    G.drawing.OverlayType.RECTANGLE
+                ]
+            },
+            rectangleOptions: {
+                zIndex: 1,
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                fillColor: "#949494",
+                fillOpacity: 0.1
+            }
+        });
+        drawingManager.setMap(map);
+
+        google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
+            if (current_rectangle != null) {
+                current_rectangle.setMap(null);
+            }
+            current_rectangle = rectangle;
+            marker_ne = rectangle.getBounds().getNorthEast();
+            marker_sw = rectangle.getBounds().getSouthWest();
+            enable_task_info();
+            generate_task_input();
+        });
+    }
+
+    function compute_nb_tasks() {
+
+        lng_distance = google.maps.geometry.spherical.computeDistanceBetween(marker_ne, new google.maps.LatLng(marker_ne.lat(), marker_sw.lng()));
+        lat_distance = google.maps.geometry.spherical.computeDistanceBetween(marker_ne, new google.maps.LatLng(marker_sw.lat(), marker_ne.lng()));
+
+        //resolution in degree
+        var nb_lat = Math.ceil(lat_distance / ($("#app_lat_res").val() * 1000));
+        var nb_lng = Math.ceil(lng_distance / ($("#app_lng_res").val() * 1000));
+
+        var nb_tasks = nb_lat * nb_lng;
+        $("#nb_tasks").html(nb_tasks);
+        generate_task_input();
+    }
+
+    function enable_task_info() {
+        $("#task_info").show();
+        $("#task_helper").hide();
+        compute_nb_tasks();
+
+    }
+
+    function generate_task_input() {
+
+        if ((marker_ne == null) || (marker_sw == null)) {
+            return;
+        }
+        console.log("generating task input");
+
+        var rectangle = {
+            lat_ne:marker_ne.lat(),
+            lng_ne:marker_ne.lng(),
+            lat_sw:marker_sw.lat(),
+            lng_sw:marker_sw.lng()
+        };
+
+        var res = {
+            lat:$("#app_lat_res").val(),
+            lng:$("#app_lng_res").val()
+        };
+
+        var input = {rectangle:rectangle, resolution:res};
+
+        $("#task_input").val(JSON.stringify(input));
+    }
+
+    function disable_task_info() {
+        $("#task_info").hide();
+        $("#task_helper").show();
+        $("#submit").attr("disabled", "true");
+    }
+
+    // Register an event listener to fire when the page finishes loading.
+    $(function() {
+        init();
+    });
+</script>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "microapp.io" %></title>
+    <%= csrf_meta_tags %>
+    <!-- [if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif] -->
+
+    <%= stylesheet_link_tag "home", :media => "all" %>
+
+    <%= favicon_link_tag 'http://cdn.androidblip.com/icn/com_defiant_supermarioentertainment____90218.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="nav" data-offset="50">
+
+
+
+  <!-- Header
+  ================================================== -->
+  <div class="jumbotron masthead" style="padding:0px;margin:10 0 0 10px" >
+    <div class="container" >
+      <h1>microapp.io</h1>
+      <p>
+        {Javascript+Cloud} toolkit to build crowdsourcing apps
+      </p>
+      <p>
+        <a href="/apps/new" class="btn btn-primary btn-large">Create an app</a>
+        <a href="/apps" class="btn btn-primary btn-large">Explore open apps</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Introduction
+  ================================================== -->
+  <div class="marketing" id="about" >
+    <div class="container">
+    <h1>Introducing microapp.io </h1>
+    <div class="row-fluid" style="text-align: justify;margin-top: 40px; ">
+      <div class="span12">
+        <!--
+        <p>You friends might be interested to participate in tiny scientific experiments or challenge requiring small amount of your time, or generate creative fantastic stories requesting  only 1 sentence to each user. See the <a href ="#demo">demo section</a></p>
+         MicroApp is a kind of search engine indexing a first fusion table
+  representing the stream of your micro-tasks to process, manages the allocation
+  of tasks (with a given redundancy) according to your users and send the
+  results to another fusion table (output) -->
+
+
+        <img src="https://docs.google.com/drawings/pub?id=1tK4GCgnKeRYK1JG-0vl6JtjiHsvL49F5l5H9id2tTxg&amp;w=350&amp;h=170"
+             style="float:left;margin:10px">
+        <p>
+          We live in a period of <a href="http://lindastone.net/qa/continuous-partial-attention/" target="_blank">(continous) partial attention</a>: web users contributions follow generally a long tail: few core people and a large majority of volatile users contributing few times.
+        </p>
+        <p>
+          The goal of microapp.io is to tap into the latter segment assuming that the sum of these micro-contributions could leverage a subtantial work (but different from what core contributors will produce).
+
+          Micro-contributions are thus contributions of any kind that someone could quickly make within a small amount of time. <!-- Any of your 200 Facebook friends have no time to peer-review  your 10-page dissertation. However they should be ok to review a tiny portion of it. -->
+        </p>
+
+        <p>
+           Microapp.io is an *experimental* toolkit to build basic multi-solvers apps broadcasting mini-challenges and gathering micro-contributions from an (open) network of web/mobile users. Up to you to request diverse &amp fun contributions or repetitive &amp; boring ones.<!--It's based on a distributed architecture reusing Google Fusion table as data manager, github as code manager and this tiny server as challenges indexer and contributors manager recommending challenges to contributors. Furthermore transparency (open app = open data + open code) and the easiness of 'clonability' (one button to clone a full app and modify it) facilitate the emergence of an eco-system of apps and best practices. -->
+
+
+        </p>
+        <!-- <p><b>What kind of micro-contributions?</b><br />
+     e.g. analyzing a large flow of individual tweets, classifying a large volume of
+     images, analyzing a large area on a map, segmenting very quickly a long video
+     collaboratively, generating stories via the writing of individual sentences , or
+         any kind of big data processable/generable more easily by volatile participants
+         than the machine.</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="soften">
+
+<div class="container" id="features">
+  <div class="marketing">
+    <h1>Make your crowdsourcing project</h1>
+
+    <div class="row-fluid" style="margin-top: 40px; text-align: left; ">
+      <div class="span4">
+        <img class="img_feature" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Z%C3%A9ro.svg/100px-Z%C3%A9ro.svg.png"/>
+        <h2>minimal setup</h2>
+        <p>
+          No server. no database. no deployment process. Microapp.io is green and reuses existing web (cloud) services. If you want a community forum, create a Facebook page or a Google group.
+        </p>
+      </div>
+      <div class="span4">
+        <img class="img_feature" src="http://taravana-tdm.com/local/cache-vignettes/L100xH100/rubon52-7ddaa.png" />
+        <h2> open app = open code + data</h2>
+        <p>
+          Microapp.io has an open policy: your data and your code are at any time accessible by anyone (in read-only mode) to facilitate the emergence of best practices.
+        </p>
+      </div>
+      <div class="span4">
+        <img class="img_feature" src="http://www.spraypaintstencils.com/sciencestencils/dna-stencil-thumb.gif">
+        <h2>Clone apps</h2>
+        <p>
+          Anyone can clone existing apps and modify the data or the code to launch their own variant crowdsourcing project in few minutes, or prototype and test different versions
+        </p>
+      </div>
+    </div>
+
+    <div class="row" style="text-align: left;">
+      <div class="span4">
+        <img  class="img_feature" src="http://medias.synergeek.fr/2012/01/File-Adobe-Dreamweaver-JavaScript-icon.png" style="filter: url(filters.svg#grayscale);filter: gray;-webkit-filter: grayscale(1);" />
+        <h2>One Language: Javascript</h2>
+        <p>
+          no need of server-side code (python, ruby or php). Only some knowledge HTML(5)/ JS is required. Microapp provides a JS framework based on <a href="http://backbonejs.org/">Backbone.js</a>
+        </p>
+      </div>
+      <div class="span4">
+        <img class="img_feature" src="http://goodsoundonline.net/wp-content/uploads/2010/02/mixcloud_cloud1.jpg">
+        <h2>Cloud data</h2>
+        <p>
+          We use <a href="http://www.google.com/fusiontables">google fusion tables</a> to store your data and not an internal database because anyone can easily view, export, analyze, visualize it.
+        </p>
+      </div>
+      <div class="span4">
+        <img  class="img_feature" src="http://qph.cf.quoracdn.net/main-thumb-t-3903-100-CJ0FqiZ57U3GeNELekTTkx3dsZ0BUgXq.jpeg">
+        <h2>Cloud coding</h2>
+        <p>
+          Code online your app via our web editor. Your app is updated on the fly and the code is stored in <a href="https://gist.github.com">Github</a> to manage versionning and faciliate collaboration.
+          <!-- By using Gist , we integrate its social coding features in the building of micro-apps e.g. (public code, easy remix/fork, code comments) and facilitate the emergence of eco-system with best practices in micro-tasking. For instance newcomers can easily fork/remix existing micro-apps in few minutes. </p> -->
+        </p>
+      </div>
+    </div>
+    <div class="row" style="text-align: left;">
+      <div class="span4">
+        <img class="img_feature" src="http://www.fanastick.com/images/stickers/447/Thumb3.jpg">
+        <h2>Workflow design</h2>
+        <p>
+          Design your own workflow at the user level (e.g. intro, tutorial,test, real task) and at the collective level e.g. iterative or parallel collective problem solving models, or pipeline of apps
+        </p>
+      </div>
+      <div class="span4">
+        <img  class="img_feature" src="http://shivsingh.com/goingsocial/images/viral.jpg">
+        <!-- http://www.supadupawebdesign.co.uk/images/articles/20/captcha.jpg
+        -->
+        <h2>Embedable app</h2>
+        <p>
+          Embed your microapp directly on your own web site like a Youtube video <!-- You are responsible to host any further tutorials/doc on your website.-->
+          so your visitors can play with the app or embed the app on their websites to support your action beyond traditional advertising or  <a href="http://en.wikipedia.org/wiki/CAPTCHA" target="_blank">captcha</a>.<!-- be creative, you can build custom captcha 'with a purpose' for your website, or active banner you can distribute to your partners' websites instead of advertising. -->
+        </p>
+      </div>
+      <div  class="span4">
+        <img class="img_feature" src="http://qph.cf.quoracdn.net/main-thumb-t-2801-100-BBm0YIIqvc8tF4DjNNGuJ8KshjjZSoO8.jpeg">
+        <h2>Mechanical Turk compatible</h2>
+        <p>
+          A layer to make your app compatible with <a href="https://www.mturk.com">Amazon mechanical turk service (AMT)</a> is provided.
+        </p>
+      </div>
+      <!-- <div class="span4">
+        <img class="img_feature" src="http://www.tuxboard.com/photos/2011/11/Masque-V-For-Vendetta-150x150.png">
+        <h2>Shared User profile </h2>
+        <p>
+          Any kind of user profile could be stored in Google fusion tables exchangeable across apps or any third party proctecting privacy
+        </p>
+      </div>
+      <div class="span4">
+        <img class="img_feature" src="http://www.parisetudiant.com/uploads/assets/evenements/vignette/122905_rubik-s-cube-party-01.jpg">
+        <h2>From Solver to Designer</h2>
+        <p>
+          TODO about crowdsourcing/self-organisation of the decomposition/design of challenges to solve complex problems
+        </p>
+      </div> -->
+    </div>
+  </div>
+</div>
+  <!--
+  <hr class="soften">
+  <div class="container" id="features2">
+    <div class="marketing">
+      <h1>Leverage participation</h1>
+
+      <div class="row" style="margin-top: 40px;text-align: left">
+        <div  class="span4">
+          <img class="img_feature" src="http://www.trackingnewtech.com/wp-content/uploads/2011/09/twitter1.png">
+          <h2>Social capital as contribution</h2>
+          <p>Some people have the willingness to participate without having time. How could they contribute? why not being simply a node to reach other people. Request the access to the social captital of participants to reach new contributors on social networks like Twitter or Facebook</p>
+        </div>
+        <div class="span4">
+          <img class="img_feature" src="http://www.prestashop.com/forums/uploads/av-112485.jpg">
+          <h2>Game ingredients</h2>
+          <p>TODO Gamify the experience of contributors by integrating badges, ranking, levels, missions, social awareness mechanisms</p>
+        </div>
+      </div>
+
+      <div class="row" style="text-align: left">
+
+        <div class="span4">
+          <img class="img_feature" src="http://www.qrmobile.fr/img/illustration/qrcode.jpg">
+          <h2>Mobile aware</h2>
+          <p>
+            Making app for mobile phones using HTML5/Javascript libs is possible. We also generates the associated <a href="http://en.wikipedia.org/wiki/QR_code">QRCode </a> stick to any app, so you can print it to advertise your
+            app in the physical world.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Footer
+  ================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <!--<img src=-->
+      <!--"http://a34.idata.over-blog.com/500x377/1/39/70/37/thats-all-folks.jpg"-->
+      <p class="pull-right">
+        <a href="#" data-bitly-type="bitly_hover_card">Back to top</a>
+      </p>
+      <ul class="footer-links">
+        <li>
+          <a href="http://nico.maisonneuve.free.fr" rel="author" data-bitly-type="bitly_hover_card"> Nicolas Maisonneuve</a> - 2012
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Javascripts ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <%= javascript_include_tag "home" %>
+  <script type="text/javascript">
+    //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30505488-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+    //]]>
+  </script>
+</body>
+</html>
